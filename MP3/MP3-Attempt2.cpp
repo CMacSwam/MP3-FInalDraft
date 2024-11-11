@@ -127,12 +127,12 @@ int main()
 
 
 /**
- * getPlayerInput:   prompts the player to enter a location on the game board to place their mark.
- *                   Validates the input to ensure it is a number between 1 and 9 and that the move is legal.
- *                   Assuming the Tic Tac Toe marks are 'X' or 'O'
+ * getPlayerInput:     prompts the player to enter a location on the game board to place their mark.
+ *                     Validates the input to ensure it is a number between 1 and 9 and that the move is legal.
+ *                     Assuming the Tic Tac Toe marks are 'X' or 'O'
  * @param playerName - the name of the player making the move
- * @param board - array containing slots for Tic Tac Toe marks.
- *                Assuming the board has no Tic Tac Toe marks
+ * @param board -      array containing slots for Tic Tac Toe marks.
+ *                     Assuming the board has no Tic Tac Toe marks
  * @return the zero-based index of the location where the player wants to place their mark
  */
 int getPlayerInput(string playerName, char board[]) 
@@ -180,10 +180,10 @@ int getPlayerInput(string playerName, char board[])
 }
 
 
-/**  isLegalMove:   checks if the specified location on the game board is a legal move.
+/** isLegalMove:    checks if the specified location on the game board is a legal move.
 *					Assuming the Tic Tac Toe marks are 'X' or 'O'
-* @param board - array containing slots for Tic Tac Toe marks.
-*                Assuming the board has no Tic Tac Toe marks
+* @param board -    array containing slots for Tic Tac Toe marks.
+*                   Assuming the board has no Tic Tac Toe marks
 * @param location - the position on the board to check for legality
 * @return true if the location is not already occupied by 'X' or 'O', otherwise false
 */
@@ -195,12 +195,13 @@ bool isLegalMove(char board[], int location)
 }
 
 
-/** placeMarkOnBoard: places the player's mark on the specified location on the game board.
- *                    Assuming the Tic Tac Toe marks are 'X' or 'O'
- * @param board - array containing slots for Tic Tac Toe marks.
- *                Assuming the board has no Tic Tac Toe marks
+/** placeMarkOnBoard:  places the player's mark on the specified location on the game board.
+ *                     Assuming the Tic Tac Toe marks are 'X' or 'O'
+ * @param board -      array containing slots for Tic Tac Toe marks.
+ *                     Assuming the board has no Tic Tac Toe marks
  * @param playerMark - the character representing the player's mark (e.g., 'X' or 'O')
- * @param location - the position on the board where the mark should be placed
+ * @param location -   the position on the board where the mark should be placed
+ * @return playermark is placed on the specificed board location 
 */
 void placeMarkOnBoard(char board[], char playerMark, int location) 
 {
@@ -210,10 +211,11 @@ void placeMarkOnBoard(char board[], char playerMark, int location)
 }
 
 
-/** clearBoard: resets the game board to its initial state with numbered slots.
- *              Assuming the Tic Tac Toe marks are 'X' or 'O'
+/** clearBoard:   resets the game board to its initial state with numbered slots.
+ *                Assuming the Tic Tac Toe marks are 'X' or 'O'
  * @param board - array containing slots for Tic Tac Toe marks.
  *                Assuming the board has no Tic Tac Toe marks
+ * @return clears board of all player marks, and sets each location back to original location numbers 
  */
 void clearBoard(char board[]) 
 {
@@ -273,8 +275,9 @@ bool hasThreeInRow(char board[], char playerMark)
 
 /** displayBoard: displays the current state of the board game.
 * 
-*  @param board - an array of characters representing the game board
+* @param board -  an array of characters representing the game board
 *				  where each element corresponds to a position on the board
+* @return prints out a correctly formatted tic tac toe board with locations for players to place their marks on the console
 */
 void displayBoard(char board[]) 
 {
@@ -288,10 +291,10 @@ void displayBoard(char board[])
 
 /** displayGameStats:   displays the game statistics including the scores of both players and the total number of ties.
 *					
-* @param		 ties - the total number of ties in the game
+* @param ties -         the total number of ties in the game
 * @param player1Score - the score of player1
 * @param player2Score - the score of player2
-* 
+* @return prints out the gamre statistics to the console 
 */
 void displayGameStats(int ties, int player1Score, int player2Score) 
 {
