@@ -14,6 +14,7 @@
 using namespace std;
 
 //function prototypes 
+int getPlayerInput(string playerName);
 int getPlayerInput(string playerName, char board[]);
 bool isLegalMove(char board[], int location);
 void placeMarkOnBoard(char board[], char playerMark, int location);
@@ -129,6 +130,46 @@ int main()
 /**
  * getPlayerInput:     prompts the player to enter a location on the game board to place their mark.
  *                     Validates the input to ensure it is a number between 1 and 9 and that the move is legal.
+ * @param playerName - the name of the player making the move
+ * @return the zero-based index of the location where the player wants to place their mark
+ * Issued function reconstruction, approved by Professor Estell. Function not called in main function. 
+ */
+int getPlayerInput(string playerName) {
+
+	int location;
+
+	while (true)
+	{
+
+		cout << endl << playerName << " please enter the location you want to place a mark: ";
+		cin >> location;
+
+		//checks for invalid input 
+		if (cin.fail()) 
+		{
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Invalid input, please enter a valid number 1-9: ";
+			continue;
+		}
+
+		//checks if location is within range 
+		if (location <= 9 && location >= 1)
+		{
+			return location - 1;
+		}
+
+		else
+		{
+			cout << "That move is not legal, please enter another number 1-9: ";
+		}
+	}
+}
+
+
+/**
+ * getPlayerInput:     prompts the player to enter a location on the game board to place their mark.
+ *                     Validates the input to ensure it is a number between 1 and 9 and that the move is legal.
  *                     Assuming the Tic Tac Toe marks are 'X' or 'O'
  * @param playerName - the name of the player making the move
  * @param board -      array containing slots for Tic Tac Toe marks.
@@ -228,10 +269,10 @@ void clearBoard(char board[])
 }
 
 
-/** hasThreeInRow: checks if the specified player has three of their marks in a row on the game board. 
-*				   Assuming the Tic Tac Toe marks are 'X' or 'O'
-* @param board - array containg slots for Tic Tac Toe marks.
-*				 Assuming the board has no Tic Tac Toe marks
+/** hasThreeInRow:    checks if the specified player has three of their marks in a row on the game board. 
+*				      Assuming the Tic Tac Toe marks are 'X' or 'O'
+* @param board -      array containg slots for Tic Tac Toe marks.
+*				      Assuming the board has no Tic Tac Toe marks
 * @param playerMark - the character representing the players mark (e.g. 'X' or 'O')
 * @return true if player has three marks in a row, otherwise false 
 */
