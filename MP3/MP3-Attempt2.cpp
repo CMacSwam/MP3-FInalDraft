@@ -27,124 +27,174 @@ bool boardFull(char board[]);
 /** main: The main function that runs the Tic Tac Toe game.
  *        It initializes the game, manages the game loop, and handles player input and game state.
  */
-int main() 
+int main()
 {
+    // Declare player names
+    string player1, player2;
+    // Initialize win counters and tie counter
+    int player1Wins = 0, player2Wins = 0, numberOfTies = 0;
+    // Initialize the game board with default values
+    char board[9] = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+    // Boolean to control the game loop
+    bool playAgain = true;
+    // Characters representing player marks
+    char player1Mark = 'X';
+    char player2Mark = 'O';
+    // Boolean to alternate starting player
+    bool player1Starts = true;
 
-	//declare player names 
-	string player1, player2;
-	//initiallize win counters and tie counter 
-	int player1Wins = 0, player2Wins = 0, numberOfTies = 0;
-	//initialize the game board with default values 
-	char board[9] = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-	//boolean to control the game loop
-	bool playAgain = true;
-	//characters representing player marks 
-	char player1Mark = 'X';
-	char player2Mark = 'O';
+    // Prompt for player names
+    cout << "Enter Player 1 name (X): ";
+    getline(cin, player1);
+    cout << "Enter Player 2 name (O): ";
+    getline(cin, player2);
 
-	//propmt for player names 
-	cout << "Enter PLayer 1 name(X): ";
-	getline(cin, player1);
-	cout << "Enter PLayer 2 name(O): ";
-	getline(cin, player2);
+    // Main game loop
+    while (playAgain)
+    {
+        // Clear and display the board at the start of each game
+        clearBoard(board);
+        displayBoard(board);
 
-	//main game loop 
-	while (playAgain)
-	{
+        // Initialize move counter and game over boolean
+        int moves = 0;
+        bool gameOver = false;
 
-		//clear and display the board at the start of each game 
-		clearBoard(board);
-		displayBoard(board);
+        // Loop to handle each turn until the game is over or the board is full
+        while (!gameOver && moves < 9)
+        {
+            if (player1Starts)
+            {
+                // Player 1's turn
+                int move = getPlayerInput(player1, board);
+                placeMarkOnBoard(board, player1Mark, move);
+                displayBoard(board);
+                moves++;
 
-		//initailize move counter and game over boolean 
-		int moves = 0;
-		bool gameOver = false;
+                // Check to see if player 1 has won
+                if (hasThreeInRow(board, player1Mark))
+                {
+                    cout << player1 << " wins!" << endl;
+                    gameOver = true;
+                    player1Wins++;
+                    break;
+                }
 
-		//loop to handle each turn until the game is over or the board is full 
-		while (!gameOver && moves < 9) 
-		{
-			//player 1's turn 
-			int move = getPlayerInput(player1, board);
-			placeMarkOnBoard(board, player1Mark, move);
-			displayBoard(board);
-			moves++;
+                // Check for tie after player 1's move
+                if (moves == 9)
+                {
+                    cout << "It's a tie!" << endl;
+                    numberOfTies++;
+                    break;
+                }
 
-			//check to see if player 1 has won 
-			if (hasThreeInRow(board, player1Mark)) 
-			{
-				cout << player1 << " wins!" << endl;
-				gameOver = true;
-				player1Wins++;
-				break;
-			}
+                // Player 2's turn
+                move = getPlayerInput(player2, board);
+                placeMarkOnBoard(board, player2Mark, move);
+                displayBoard(board);
+                moves++;
 
-			//check for tie after player 1's move 
-			if (moves == 9) 
-			{
-				cout << "It's a tie!" << endl;
-				numberOfTies++;
-				break;
-			}
+                // Check if player 2 has won
+                if (hasThreeInRow(board, player2Mark))
+                {
+                    cout << player2 << " wins!" << endl;
+                    gameOver = true;
+                    player2Wins++;
+                }
 
-			//player 2's turn 
-			move = getPlayerInput(player2, board);
-			placeMarkOnBoard(board, player2Mark, move);
-			displayBoard(board);
-			moves++;
+                // Check for a tie after player 2's move
+                if (moves == 9)
+                {
+                    cout << "It's a tie!" << endl;
+                    numberOfTies++;
+                    break;
+                }
+            }
+            else
+            {
+                // Player 2's turn
+                int move = getPlayerInput(player2, board);
+                placeMarkOnBoard(board, player2Mark, move);
+                displayBoard(board);
+                moves++;
 
-			//check if player 2 has won 
-			if (hasThreeInRow(board, player2Mark)) 
-			{
-				cout << player2 << " wins!" << endl;
-				gameOver = true;
-				player2Wins++;
-			}
+                // Check if player 2 has won
+                if (hasThreeInRow(board, player2Mark))
+                {
+                    cout << player2 << " wins!" << endl;
+                    gameOver = true;
+                    player2Wins++;
+                    break;
+                }
 
-			//check for a tie after player 2's move 
-			if (moves == 9) 
-			{
-				cout << "It's a tie!" << endl;
-				numberOfTies++;
-				break;
-			}
-		}
+                // Check for tie after player 2's move
+                if (moves == 9)
+                {
+                    cout << "It's a tie!" << endl;
+                    numberOfTies++;
+                    break;
+                }
 
-		//display the game statistics after each game 
-		displayGameStats(numberOfTies, player1Wins, player2Wins);
+                // Player 1's turn
+                move = getPlayerInput(player1, board);
+                placeMarkOnBoard(board, player1Mark, move);
+                displayBoard(board);
+                moves++;
 
-		//prompt to play again and checks if the user input follows prompt
-		while (true)
-		{
-			//prompt user 
-			char quit;
-			cout << "Do you want to play again? Enter 'Y' or 'N': ";
-			cin >> quit;
+                // Check to see if player 1 has won
+                if (hasThreeInRow(board, player1Mark))
+                {
+                    cout << player1 << " wins!" << endl;
+                    gameOver = true;
+                    player1Wins++;
+                }
 
-			//check user input
-			if ((quit != 'y' && quit != 'Y') && (quit != 'n' && quit != 'N')) 
-			{
-				cout << "Invalid input, please enter again" << endl;
-			}
+                // Check for a tie after player 1's move
+                if (moves == 9)
+                {
+                    cout << "It's a tie!" << endl;
+                    numberOfTies++;
+                    break;
+                }
+            }
+        }
 
-			else
-			{
-				if (quit == 'y' || quit == 'Y')
-				{
-					playAgain = true;
-				}
+        // Display the game statistics after each game
+        displayGameStats(numberOfTies, player1Wins, player2Wins);
 
-				else if (quit == 'N' || quit == 'n')
-				{
-					playAgain = false;
-				}
-				break;
-			}
-		}
-	}
+        // Toggle the starting player for the next game
+        player1Starts = !player1Starts;
 
-	//thank players for playing 
-	cout << "Thanks for playing!" << endl;
+        // Prompt to play again and checks if the user input follows prompt
+        while (true)
+        {
+            // Prompt user
+            char quit;
+            cout << "Do you want to play again? Enter 'Y' or 'N': ";
+            cin >> quit;
 
+            // Check user input
+            if ((quit != 'y' && quit != 'Y') && (quit != 'n' && quit != 'N'))
+            {
+                cout << "Invalid input, please enter again" << endl;
+            }
+            else
+            {
+                if (quit == 'y' || quit == 'Y')
+                {
+                    playAgain = true;
+                }
+                else if (quit == 'N' || quit == 'n')
+                {
+                    playAgain = false;
+                }
+                break;
+            }
+        }
+    }
+
+    // Thank players for playing
+    cout << "Thanks for playing!" << endl;
 }
 
 
