@@ -63,7 +63,6 @@ int main()
 		//loop to handle each turn until the game is over or the board is full 
 		while (!gameOver && moves < 9) 
 		{
-
 			//player 1's turn 
 			int move = getPlayerInput(player1, board);
 			placeMarkOnBoard(board, player1Mark, move);
@@ -108,17 +107,39 @@ int main()
 				numberOfTies++;
 				break;
 			}
-
 		}
 
 		//display the game statistics after each game 
 		displayGameStats(numberOfTies, player1Wins, player2Wins);
 
-		//prompt to play again 
-		char quit;
-		cout << "Do you want to play again? Enter 'Y' or 'y': ";
-		cin >> quit;
-		playAgain = (quit == 'y' || quit == 'Y');
+		//prompt to play again and checks if the user input follows prompt
+		while (true)
+		{
+			//prompt user 
+			char quit;
+			cout << "Do you want to play again? Enter 'Y' or 'N': ";
+			cin >> quit;
+
+			//check user input
+			if ((quit != 'y' && quit != 'Y') && (quit != 'n' && quit != 'N')) 
+			{
+				cout << "Invalid input, please enter again" << endl;
+			}
+
+			else
+			{
+				if (quit == 'y' || quit == 'Y')
+				{
+					playAgain = true;
+				}
+
+				else if (quit == 'N' || quit == 'n')
+				{
+					playAgain = false;
+				}
+				break;
+			}
+		}
 	}
 
 	//thank players for playing 
@@ -132,7 +153,6 @@ int main()
  *                     Validates the input to ensure it is a number between 1 and 9 and that the move is legal.
  * @param playerName - the name of the player making the move
  * @return the zero-based index of the location where the player wants to place their mark
- * Issued function reconstruction, approved by Professor Estell. Function not called in main function. 
  */
 int getPlayerInput(string playerName) {
 
@@ -140,7 +160,6 @@ int getPlayerInput(string playerName) {
 
 	while (true)
 	{
-
 		cout << endl << playerName << " please enter the location you want to place a mark: ";
 		cin >> location;
 
@@ -175,6 +194,7 @@ int getPlayerInput(string playerName) {
  * @param board -      array containing slots for Tic Tac Toe marks.
  *                     Assuming the board has no Tic Tac Toe marks
  * @return the zero-based index of the location where the player wants to place their mark
+ * Overloading function getPlayerInput, approved by Dr.Estell. 
  */
 int getPlayerInput(string playerName, char board[]) 
 {
@@ -183,7 +203,6 @@ int getPlayerInput(string playerName, char board[])
 
 	while (true) 
 	{
-
 		cout << endl << playerName << " please enter the location you want to place your mark: ";
 		cin >> location;
 		
@@ -199,7 +218,6 @@ int getPlayerInput(string playerName, char board[])
 		//check if location is within valid range 
 		if (location >= 1 && location <= 9) 
 		{
-
 			if (isLegalMove(board, location)) 
 			{
 				return location - 1;
@@ -215,9 +233,7 @@ int getPlayerInput(string playerName, char board[])
 		{
 			cout << "Error in your input, please enter a valid number 1-9\n";
 		}
-
 	}
-
 }
 
 
@@ -230,9 +246,7 @@ int getPlayerInput(string playerName, char board[])
 */
 bool isLegalMove(char board[], int location) 
 {
-
 	return (board[location - 1] != 'X' && board[location - 1] != 'O');
-
 }
 
 
@@ -246,9 +260,7 @@ bool isLegalMove(char board[], int location)
 */
 void placeMarkOnBoard(char board[], char playerMark, int location) 
 {
-
 	board[location] = playerMark;
-
 }
 
 
@@ -260,12 +272,10 @@ void placeMarkOnBoard(char board[], char playerMark, int location)
  */
 void clearBoard(char board[]) 
 {
-
 	for (int i = 0; i < 9; i++) 
 	{
 		board[i] = '1' + i; //converts integer to corresponding chararacter 
 	}
-
 }
 
 
@@ -278,7 +288,6 @@ void clearBoard(char board[])
 */
 bool hasThreeInRow(char board[], char playerMark) 
 {
-
 	//Check rows for three in row
 	for (int i = 0; i < 9; i += 3) 
 	{
@@ -310,7 +319,6 @@ bool hasThreeInRow(char board[], char playerMark)
 
 	//Return false if no three in row, column, or diagonal is found 
 	return false;
-
 }
 
 
@@ -342,7 +350,6 @@ void displayGameStats(int ties, int player1Score, int player2Score)
 	cout << "Player 1's score: " << player1Score << endl;
 	cout << "Player 2's score: " << player2Score << endl;
 	cout << "Total number of ties: " << ties << endl;
-
 }
 
 
@@ -354,7 +361,6 @@ void displayGameStats(int ties, int player1Score, int player2Score)
 */
 bool boardFull(char board[]) 
 {
-
 	int markCounter = 0;
 
 	for (int i = 0; i < 9; i++) 
